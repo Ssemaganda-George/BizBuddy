@@ -1,0 +1,15 @@
+{
+  "name": "bizbuddy-mvp",
+  "version": "1.0.0",
+  "description": "AI + mentor platform for small businesses",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "setup:supabase": "cd backend && npm run setup:supabase"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
