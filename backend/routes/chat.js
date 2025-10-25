@@ -33,6 +33,227 @@ const generateAIResponse = (businessAge, businessType, challenges) => {
   }
 }
 
+// Enhanced AI response function with better conversation handling
+const generateEnhancedAIResponse = (message, businessAge, businessType, conversationHistory, isInitialDiagnosis) => {
+  const lowerMessage = message.toLowerCase()
+  
+  // Initial diagnosis with comprehensive insights
+  if (isInitialDiagnosis) {
+    if (lowerMessage.includes('cash') || lowerMessage.includes('money') || lowerMessage.includes('finance')) {
+      return `I understand cash flow is a major concern! Let me give you some practical solutions that actually work:
+
+**Immediate Actions You Can Take:**
+Getting your cash flow under control starts with tracking it better. Set up a simple system like Wave Accounting (it's free) or QuickBooks to see where your money goes.
+
+Try offering early payment discounts - something like "pay within 10 days, get 2% off." Most businesses see a 30% improvement in payment speed with this simple change.
+
+**Smart Financing Options:**
+Look into invoice factoring companies like Fundbox if you need cash fast. They'll advance you money on unpaid invoices, usually within 24 hours.
+
+For ${businessType || 'your'} business, consider applying for an SBA microloan or checking with local CDFIs (Community Development Financial Institutions) - they often have better rates than traditional banks.
+
+**The Weekly Habit That Changes Everything:**
+Create a 13-week rolling cash flow forecast and update it every Friday. This simple habit helps you spot problems 2-3 months before they hit, giving you time to fix them.
+
+What's your biggest cash flow challenge right now - slow-paying customers, seasonal dips, or something else? Let me give you more specific advice! 💰`
+    }
+    
+    if (lowerMessage.includes('market') || lowerMessage.includes('customer') || lowerMessage.includes('sales') || lowerMessage.includes('grow')) {
+      return `Let me share some marketing strategies that are working really well for ${businessType || 'businesses'} right now:
+
+**Start Here (Free & Effective):**
+First things first - claim your Google Business Profile if you haven't already. This single step can increase your local visibility by 200%. Add photos, respond to reviews, and post updates weekly.
+
+**Content That Actually Converts:**
+Video content is dominating right now - it gets 12x more engagement than text posts. Don't worry about being perfect! Even simple behind-the-scenes videos on your phone work great.
+
+**Email Marketing (Still the Best ROI):**
+For every $1 you spend on email marketing, you typically get $42 back. Start collecting emails with something valuable - a discount, guide, or insider tips.
+
+**Budget-Friendly Tools to Get Started:**
+- Canva for creating graphics ($13/month, but has a good free plan)
+- Buffer for scheduling social posts ($6/month)
+- Mailchimp for email (free up to 2,000 contacts)
+
+**Quick Win Strategy:**
+Partner with 2-3 complementary local businesses for cross-promotion. For example, if you're a fitness trainer, partner with a healthy meal prep company and nutrition store.
+
+What's your current biggest marketing challenge - finding new customers or keeping the ones you have engaged? 🎯`
+    }
+    
+    return generateContextualResponse(message, businessAge, businessType)
+  }
+  
+  // Ongoing conversation responses
+  return generateConversationalResponse(message, businessAge, businessType, conversationHistory)
+}
+
+const generateContextualResponse = (message, businessAge, businessType) => {
+  const lowerMessage = message.toLowerCase()
+  
+  if (lowerMessage.includes('staff') || lowerMessage.includes('employee') || lowerMessage.includes('hire') || lowerMessage.includes('team')) {
+    return `Let me help you with staffing challenges! Here's what's working for businesses like yours:
+
+**Smart Hiring in Today's Market:**
+Remote work flexibility and clear growth paths are now essential for attracting good talent. Even if you can't offer full remote work, consider flexible schedules or hybrid options.
+
+**Where to Find Great People:**
+- Indeed (free basic posting)
+- LinkedIn (great for professional roles)
+- Local Facebook job groups
+- Ask your best employees for referrals (offer a $500 bonus)
+
+**Interview Smarter:**
+Instead of just talking, give candidates a small, paid test project. This shows you their actual skills and work style better than any interview.
+
+**Retention That Works:**
+- Regular one-on-one check-ins (monthly)
+- Professional development budget (even $500/year helps)
+- Recognize wins publicly
+- Clear path for advancement
+
+What's your biggest staffing challenge right now - finding people or keeping them? 👥`
+  }
+  
+  if (lowerMessage.includes('tech') || lowerMessage.includes('digital') || lowerMessage.includes('online') || lowerMessage.includes('website')) {
+    return `Technology can be a game-changer for your business! Let me break down the essentials:
+
+**Must-Have Tech Stack:**
+- Website: WordPress or Squarespace for easy management
+- Payments: Square or Stripe for seamless transactions  
+- Communication: Slack for team chat, Zoom for meetings
+- Project Management: Trello (simple) or Asana (advanced)
+
+**AI Tools That Actually Help:**
+- ChatGPT for content creation and customer service
+- Canva for quick design work
+- Calendly for automated scheduling
+- Zapier for connecting different tools
+
+**Mobile-First Strategy:**
+60% of your customers browse on phones! Make sure your website loads fast on mobile and your phone number is clickable.
+
+**Security Basics:**
+- Use strong passwords and 2FA everywhere
+- Regular backups (automated if possible)
+- Basic cybersecurity training for your team
+
+Want me to analyze your website? Just paste your URL and I'll give you specific improvement recommendations! 💻`
+  }
+  
+  return generateAIResponse(businessAge, businessType, message)
+}
+
+const generateConversationalResponse = (message, businessAge, businessType, conversationHistory) => {
+  const lowerMessage = message.toLowerCase()
+  
+  if (lowerMessage.includes('how') && lowerMessage.includes('start')) {
+    return `Great question! Here's your step-by-step action plan:
+
+**Week 1 - Foundation:**
+- Set up basic accounting (Wave is free and simple)
+- Create your Google Business Profile
+- Document your most important process
+
+**Week 2-3 - Visibility:**
+- Launch simple social media presence
+- Connect with 5 local business owners
+- Set up a simple customer feedback system
+
+**Month 2 - Growth:**
+- Analyze what's working and double down
+- Automate one repetitive task
+- Plan your next growth phase
+
+What feels like the most urgent priority for you right now? I can give you more specific guidance! 🚀`
+  }
+  
+  if (lowerMessage.includes('cost') || lowerMessage.includes('budget') || lowerMessage.includes('cheap') || lowerMessage.includes('free')) {
+    return `I totally get it - budget matters! Here are the best free and low-cost tools:
+
+**Completely Free:**
+- Google Workspace (basic plan)
+- Wave Accounting
+- Canva (limited free plan)
+- Hootsuite (3 social accounts)
+- Google Analytics
+
+**Worth the Small Investment:**
+- Mailchimp ($10/month for email marketing)
+- Calendly ($8/month for scheduling)
+- Trello ($5/month for project management)
+
+**ROI-Focused Spending:**
+Focus your budget on tools that either save you significant time or directly generate revenue. Everything else can wait.
+
+What's your monthly budget for business tools? I can prioritize recommendations based on what you can afford! 💰`
+  }
+  
+  // Default response for general queries
+  return `I'm here to help you tackle any business challenge! Based on your ${businessType || 'business'}, here are some areas I can dive deep into:
+
+**💰 Financial Management:** Cash flow, pricing, funding options
+**📱 Marketing & Sales:** Digital marketing, customer acquisition, retention
+**👥 Operations & Team:** Hiring, processes, productivity tools
+**💻 Technology:** Website optimization, automation, digital tools
+**📊 Strategy & Growth:** Planning, metrics, scaling
+
+What specific challenge would you like to explore? The more details you share, the better I can help!
+
+You can also paste your website URL for an instant analysis, or ask about any business topic on your mind. 🎯`
+}
+
+// Add continuous chat endpoint
+router.post('/respond', protect, async (req, res) => {
+  try {
+    const { message, businessAge, businessType, conversationHistory, isInitialDiagnosis } = req.body
+    const sessionId = `conversation_${Date.now()}_${req.user.id}`
+
+    // Enhanced AI response generation
+    const response = generateEnhancedAIResponse(
+      message, 
+      businessAge, 
+      businessType, 
+      conversationHistory,
+      isInitialDiagnosis
+    )
+
+    // Save conversation to database
+    await SupabaseChat.create({
+      userId: req.user.id,
+      sessionId,
+      businessData: {
+        age: businessAge,
+        type: businessType,
+        lastMessage: message
+      },
+      messages: [
+        {
+          type: 'user',
+          content: message,
+          timestamp: new Date()
+        },
+        {
+          type: 'bot', 
+          content: response,
+          timestamp: new Date()
+        }
+      ],
+      aiSuggestion: response,
+      status: 'active'
+    })
+
+    res.json({
+      success: true,
+      response,
+      sessionId
+    })
+  } catch (error) {
+    console.error('Chat response error:', error)
+    res.status(500).json({ message: 'Server error' })
+  }
+})
+
 // Diagnose business challenges
 router.post('/diagnose', protect, async (req, res) => {
   try {
@@ -85,6 +306,68 @@ router.post('/diagnose', protect, async (req, res) => {
   }
 })
 
+// Add website analysis endpoint
+router.post('/analyze-website', protect, async (req, res) => {
+  try {
+    const { websiteUrl, businessType } = req.body
+
+    if (!websiteUrl) {
+      return res.status(400).json({ message: 'Website URL is required' })
+    }
+
+    console.log(`Analyzing website: ${websiteUrl}`)
+    
+    // Analyze the website
+    const analysis = await WebsiteAnalyzer.analyzeWebsite(websiteUrl)
+    
+    // Generate insights
+    const insights = WebsiteAnalyzer.generateWebsiteInsights(analysis, businessType)
+    
+    // Generate friendly response
+    const analysisResponse = WebsiteAnalyzer.generateFriendlyResponse(analysis, insights, businessType)
+
+    // Save analysis to database
+    const sessionId = `website_analysis_${Date.now()}_${req.user.id}`
+
+    await SupabaseChat.create({
+      userId: req.user.id,
+      sessionId,
+      businessData: {
+        websiteUrl,
+        businessType: businessType || 'Unknown'
+      },
+      messages: [
+        {
+          type: 'user',
+          content: `Please analyze my website: ${websiteUrl}`,
+          timestamp: new Date()
+        },
+        {
+          type: 'bot',
+          content: analysisResponse,
+          timestamp: new Date()
+        }
+      ],
+      aiSuggestion: analysisResponse,
+      status: 'completed'
+    })
+
+    res.json({
+      success: true,
+      analysis,
+      insights,
+      response: analysisResponse
+    })
+
+  } catch (error) {
+    console.error('Website analysis error:', error)
+    res.status(500).json({ 
+      message: 'Failed to analyze website',
+      error: error.message 
+    })
+  }
+})
+
 // Get user chat history
 router.get('/history', protect, async (req, res) => {
   try {
@@ -101,332 +384,6 @@ router.get('/history', protect, async (req, res) => {
   } catch (error) {
     console.error('Chat history error:', error)
     res.status(500).json({ message: 'Server error' })
-  }
-})
-
-// Add new continuous chat endpoint
-router.post('/respond', protect, async (req, res) => {
-  try {
-    const { message, businessAge, businessType, conversationHistory, isInitialDiagnosis } = req.body
-    const sessionId = `conversation_${Date.now()}_${req.user.id}`
-
-    // Enhanced AI response generation with web context
-    const response = await generateEnhancedAIResponse(
-      message, 
-      businessAge, 
-      businessType, 
-      conversationHistory,
-      isInitialDiagnosis
-    )
-
-    // Save conversation to database
-    const chat = await SupabaseChat.create({
-      userId: req.user.id,
-      sessionId,
-      businessData: {
-        age: businessAge,
-        type: businessType,
-        lastMessage: message
-      },
-      messages: [
-        {
-          type: 'user',
-          content: message,
-          timestamp: new Date()
-        },
-        {
-          type: 'bot', 
-          content: response,
-          timestamp: new Date()
-        }
-      ],
-      aiSuggestion: response,
-      status: 'active'
-    })
-
-    res.json({
-      success: true,
-      response,
-      sessionId
-    })
-  } catch (error) {
-    console.error('Chat response error:', error)
-    res.status(500).json({ message: 'Server error' })
-  }
-})
-
-// Add website analysis endpoint
-router.post('/analyze-website', protect, async (req, res) => {
-  try {
-    const { websiteUrl, businessType } = req.body
-
-    if (!websiteUrl) {
-      return res.status(400).json({ message: 'Website URL is required' })
-    }
-
-    console.log(`Analyzing website: ${websiteUrl}`)
-    
-    // Analyze the website
-    const analysis = await WebsiteAnalyzer.analyzeWebsite(websiteUrl)
-    
-    // Generate insights
-    const insights = WebsiteAnalyzer.generateWebsiteInsights(analysis, businessType)
-    
-    // Generate friendly response
-    const analysisResponse = WebsiteAnalyzer.generateFriendlyResponse(analysis, insights, businessType)
-
-    // Save analysis to database
-    const sessionId = `website_analysis_${Date.now()}_${req.user.id}`
-
-    await SupabaseChat.create({
-      userId: req.user.id,
-      sessionId,
-      businessData: {
-        websiteUrl,
-        businessType: businessType || 'Unknown'
-      },
-      messages: [
-        {
-          type: 'user',
-          content: `Please analyze my website: ${websiteUrl}`,
-          timestamp: new Date()
-        },
-        {
-          type: 'bot',
-          content: analysisResponse,
-          timestamp: new Date()
-        }
-      ],
-      aiSuggestion: analysisResponse,
-      status: 'completed'
-    })
-
-    res.json({
-      success: true,
-      analysis,
-      insights,
-      response: analysisResponse
-    })
-
-  } catch (error) {
-    console.error('Website analysis error:', error)
-    res.status(500).json({ 
-      message: 'Failed to analyze website',
-      error: error.message 
-    })
-  }
-})
-
-// Enhanced AI response function with web-like insights
-const generateEnhancedAIResponse = async (message, businessAge, businessType, conversationHistory, isInitialDiagnosis) => {
-  const lowerMessage = message.toLowerCase()
-  
-  // Initial diagnosis with comprehensive insights
-  if (isInitialDiagnosis) {
-    if (lowerMessage.includes('cash') || lowerMessage.includes('money') || lowerMessage.includes('finance')) {
-      return `I understand cash flow is a major concern! Let me give you some practical solutions that actually work:
-
-**Immediate Actions You Can Take:**
-Getting your cash flow under control starts with tracking it better. Set up a simple system like Wave Accounting (it's free) or QuickBooks to see where your money goes.
-
-Try offering early payment discounts - something like "pay within 10 days, get 2% off." Most businesses see a 30% improvement in payment speed with this simple change.
-
-**Smart Financing Options:**
-Look into invoice factoring companies like Fundbox if you need cash fast. They'll advance you money on unpaid invoices, usually within 24 hours.
-
-For ${businessType.toLowerCase()} businesses, consider applying for an SBA microloan or checking with local CDFIs (Community Development Financial Institutions) - they often have better rates than traditional banks.
-
-**The Weekly Habit That Changes Everything:**
-Create a 13-week rolling cash flow forecast and update it every Friday. This simple habit helps you spot problems 2-3 months before they hit, giving you time to fix them.
-
-What's your biggest cash flow challenge right now - slow-paying customers, seasonal dips, or something else? Let me give you more specific advice! 💰`
-    }
-    
-    return generateContextualResponse(message, businessAge, businessType)
-  }
-  
-  // Ongoing conversation responses
-  return generateConversationalResponse(message, businessAge, businessType, conversationHistory)
-}
-
-const generateContextualResponse = (message, businessAge, businessType) => {
-  const responses = {
-    marketing: `Let me share some marketing strategies that are working really well for ${businessType} businesses right now:
-
-**Start Here (Free & Effective):**
-First things first - claim your Google Business Profile if you haven't already. This single step can increase your local visibility by 200%. Add photos, respond to reviews, and post updates weekly.
-
-**Content That Actually Converts:**
-Video content is dominating right now - it gets 12x more engagement than text posts. Don't worry about being perfect! Even simple behind-the-scenes videos on your phone work great.
-
-**Email Marketing (Still the Best ROI):**
-For every $1 you spend on email marketing, you typically get $42 back. Start collecting emails with something valuable - a discount, guide, or insider tips.
-
-**Budget-Friendly Tools to Get Started:**
-- Canva for creating graphics ($13/month, but has a good free plan)
-- Buffer for scheduling social posts ($6/month)
-- Mailchimp for email (free up to 2,000 contacts)
-
-**Quick Win Strategy:**
-Partner with 2-3 complementary local businesses for cross-promotion. For example, if you're a fitness trainer, partner with a healthy meal prep company and nutrition store.
-
-What's your current biggest marketing challenge - finding new customers or keeping the ones you have engaged? 🎯`,
-
-    operations: `Operations optimization can make a huge difference in your daily stress level and profits. Here's where to start:
-
-**Document Your Key Processes First:**
-Pick your 3 most important business processes and write them down step-by-step. Use a tool like Loom ($8/month) to create quick video tutorials for anything complex.
-
-**Automation Wins:**
-Start with invoice automation - tools like FreshBooks or Wave can automatically send invoices and payment reminders. This alone saves most business owners 3-5 hours per week.
-
-**Simple Project Management:**
-Try Trello (free) or Asana ($11/month) to keep track of tasks and deadlines. Having everything in one place reduces the mental load significantly.
-
-**Key Metrics to Watch:**
-- How long it takes to complete your main service/product delivery
-- Customer acquisition cost (how much you spend to get each new customer)
-- Customer lifetime value (how much each customer is worth over time)
-
-**The 80/20 Rule:**
-Focus on the 20% of tasks that drive 80% of your results. What's the one bottleneck that, if fixed, would make everything else easier?
-
-What's your biggest operational headache right now? 🔧`
-  }
-
-  const lowerMessage = message.toLowerCase()
-  
-  if (lowerMessage.includes('market') || lowerMessage.includes('customer') || lowerMessage.includes('sales')) {
-    return responses.marketing
-  } else if (lowerMessage.includes('process') || lowerMessage.includes('operation') || lowerMessage.includes('efficiency')) {
-    return responses.operations
-  }
-  
-  return generateAIResponse(businessAge, businessType, message) // fallback to original function
-}
-
-const generateConversationalResponse = (message, businessAge, businessType, conversationHistory) => {
-  const lowerMessage = message.toLowerCase()
-  
-  // Analyze conversation context
-  const recentTopics = conversationHistory?.slice(-3).map(msg => msg.content?.toLowerCase()).join(' ') || ''
-  
-  if (lowerMessage.includes('how') && lowerMessage.includes('start')) {
-    return `🚀 **Getting Started Guide:**
-
-Based on our conversation, here's your step-by-step plan:
-
-**Week 1:**
-• Set up basic business systems (accounting, CRM)
-• Create your Google Business Profile
-• Document your core process
-
-**Week 2-3:**
-• Launch simple marketing campaigns
-• Connect with local business networks
-• Implement customer feedback systems
-
-**Month 2:**
-• Analyze what's working and double down
-• Automate repetitive tasks
-• Plan for scaling
-
-What would you like to tackle first?`
-  }
-  
-  if (lowerMessage.includes('cost') || lowerMessage.includes('budget') || lowerMessage.includes('cheap')) {
-    return `💰 **Budget-Conscious Solutions:**
-
-🆓 **Free Tools:**
-• Google Workspace (basic)
-• Canva (limited free plan)
-• Wave Accounting
-• Hootsuite (3 social accounts)
-
-💸 **Low-Cost, High-Impact:**
-• Mailchimp ($10/month for email marketing)
-• Calendly ($8/month for scheduling)
-• Trello ($5/month for project management)
-
-🎯 **ROI-Focused Spending:**
-Focus your budget on tools that directly generate revenue or save significant time.
-
-What's your monthly budget for business tools?`
-  }
-  
-  // Default conversational response
-  return `🤔 **Let me help you with that:**
-
-Based on what you're asking about, here are some practical insights:
-
-• Every business challenge has multiple solutions - let's find the right one for you
-• The best approach often combines free/low-cost tools with strategic thinking
-• Implementation is more important than perfection
-
-Can you tell me more specifically what you'd like to achieve or what obstacle you're facing?
-
-I'm here to provide detailed, actionable advice for your ${businessType} business! 🚀`
-}
-
-// Add website analysis endpoint
-router.post('/analyze-website', protect, async (req, res) => {
-  try {
-    const { websiteUrl, businessType } = req.body
-
-    if (!websiteUrl) {
-      return res.status(400).json({ message: 'Website URL is required' })
-    }
-
-    console.log(`Analyzing website: ${websiteUrl}`)
-    
-    // Analyze the website
-    const analysis = await WebsiteAnalyzer.analyzeWebsite(websiteUrl)
-    
-    // Generate insights
-    const insights = WebsiteAnalyzer.generateWebsiteInsights(analysis, businessType)
-    
-    // Generate friendly response
-    const analysisResponse = WebsiteAnalyzer.generateFriendlyResponse(analysis, insights, businessType)
-
-    // Save analysis to database
-    const sessionId = `website_analysis_${Date.now()}_${req.user.id}`
-
-    await SupabaseChat.create({
-      userId: req.user.id,
-      sessionId,
-      businessData: {
-        websiteUrl,
-        businessType: businessType || 'Unknown'
-      },
-      messages: [
-        {
-          type: 'user',
-          content: `Please analyze my website: ${websiteUrl}`,
-          timestamp: new Date()
-        },
-        {
-          type: 'bot',
-          content: analysisResponse,
-          timestamp: new Date()
-        }
-      ],
-      aiSuggestion: analysisResponse,
-      status: 'completed'
-    })
-
-    res.json({
-      success: true,
-      analysis,
-      insights,
-      response: analysisResponse
-    })
-
-  } catch (error) {
-    console.error('Website analysis error:', error)
-    res.status(500).json({ 
-      message: 'Failed to analyze website',
-      error: error.message 
-    })
   }
 })
 
